@@ -19,15 +19,20 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Set up Node.js
+
+      # Set up Node.js version 20.18.0
+      - name: Set up Node.js 20.18.0
         uses: actions/setup-node@v3
         with:
-          node-version: "20.18.0" # Installs a compatible Node.js version (20.x)
-      - name: Install dependencies
-        run: npm install # Install project dependencies
+          node-version: "20.18.0"
 
-      - name: Build Angular app
-        run: npm run build -- --configuration=production # Build Angular app for production
+      # Authenticate with npm (using your npm token stored in GitHub Secrets)
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
 
       - name: Build And Deploy
         id: builddeploy
@@ -37,7 +42,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "./api" # Api source code path - optional
           output_location: "dist/prueba-aazure" # Built app content directory - optional
