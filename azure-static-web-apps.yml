@@ -32,4 +32,4 @@ jobs:
           # The build output directory (replace 'dist/your-app-name' with your actual dist folder path)
           app_location: "/"
           api_location: "api" # Set this if you have Azure Functions in your app, otherwise leave it empty
-          output_location: "dist/your-app-name"
+          output_location: "dist/prueba-aazure"
